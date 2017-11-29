@@ -1,0 +1,25 @@
+{
+  "name": "novel",
+  "version": "1.0.0",
+  "description": "A personal boilerplate for writing novels with lint",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "textlint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stak/novel.git"
+  },
+  "author": "Shutaro Takimoto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stak/novel/issues"
+  },
+  "homepage": "https://github.com/stak/novel#readme",
+  "dependencies": {
+    "textlint": "^9.1.1"
+  }
+}
