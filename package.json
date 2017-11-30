@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "textlint src/"
+    "test": "textlint \"src/**\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/stak/novel#readme",
   "dependencies": {
-    "textlint": "^9.1.1"
+    "textlint": "^9.1.1",
+    "textlint-rule-editorconfig": "^1.0.3"
   }
 }
