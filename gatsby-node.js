@@ -3,14 +3,13 @@ const fs = require('fs');
 
 const onCreateNodeHandlers = [
   {
-    name: '',
-    description: '',
-    targetType: [],
+    name: 'addFileSlug',
+    targetType: ['File'],
     handler: ({ node, actions }) => {
       actions.createNodeField({
         node,
-        name: '',
-        value: '',
+        name: 'slug',
+        value: node.relativePath.replace(/\//g, '_').slice(0, -node.ext.length),
       });
     },
   },
@@ -32,8 +31,9 @@ exports.createPages = ({ graphql, actions }) => {
       allFile {
         edges {
           node {
-            ext
-            relativePath
+            fields {
+              slug
+            }
             absolutePath
           }
         }
@@ -42,9 +42,7 @@ exports.createPages = ({ graphql, actions }) => {
   `).then(({ data }) => {
     data.allFile.edges.forEach(({ node }) => {
       createPage({
-        path: `/view/${node.relativePath
-          .replace(/\//g, '_')
-          .slice(0, -node.ext.length)}`,
+        path: `/view/${node.fields.slug}`,
         component: path.resolve(`./src/pages/view.js`),
         context: {
           raw: fs.readFileSync(node.absolutePath, 'utf-8'),
