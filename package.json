@@ -21,7 +21,13 @@
   "homepage": "https://github.com/stak/senovee#readme",
   "dependencies": {
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": "^1.0.1",
+    "gatsby": "^2.0.76",
+    "gatsby-source-filesystem": "^2.0.8",
     "lodash": ">=4.17.5",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "senovee-ast": "file:packages/senovee-ast",
     "textlint": "^11.*",
     "textlint-rule-general-novel-style-ja": "^1.3.0",
     "textlint-rule-ja-hiragana-fukushi": "^1.0.3",
@@ -42,12 +48,7 @@
     "textlint-rule-prefer-tari-tari": "^1.0.2",
     "textlint-rule-prh": "^5.0.1",
     "textlint-rule-senovee-test": "file:packages/textlint-rule-senovee-test",
-    "textlint-rule-sentence-length": "^2.0.2",
-    "gatsby": "^2.0.76",
-    "gatsby-source-filesystem": "^2.0.8",
-    "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "textlint-rule-sentence-length": "^2.0.2"
   },
   "devDependencies": {
     "eslint": "^5.12.1",
