@@ -4,6 +4,9 @@
   "description": "A personal boilerplate for writing novels with lint",
   "main": "index.js",
   "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
     "test": "textlint \"text/**\""
   },
   "repository": {
@@ -39,6 +42,21 @@
     "textlint-rule-prefer-tari-tari": "^1.0.2",
     "textlint-rule-prh": "^5.0.1",
     "textlint-rule-senovee-test": "file:rules/textlint-rule-senovee-test",
-    "textlint-rule-sentence-length": "^2.0.2"
+    "textlint-rule-sentence-length": "^2.0.2",
+    "gatsby": "^2.0.76",
+    "gatsby-source-filesystem": "^2.0.8",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.15.2"
   }
 }
