@@ -1,24 +1,21 @@
 {
-  "name": "novel",
-  "version": "1.0.0",
+  "name": "senovee",
+  "version": "0.0.1",
   "description": "A personal boilerplate for writing novels with lint",
   "main": "index.js",
-  "directories": {
-    "doc": "doc"
-  },
   "scripts": {
     "test": "textlint \"src/**\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stak/novel.git"
+    "url": "git+https://github.com/stak/senovee.git"
   },
   "author": "Shutaro Takimoto",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stak/novel/issues"
+    "url": "https://github.com/stak/senovee/issues"
   },
-  "homepage": "https://github.com/stak/novel#readme",
+  "homepage": "https://github.com/stak/senovee#readme",
   "dependencies": {
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": "^1.0.1",
     "textlint": "^10.2.1",
