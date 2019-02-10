@@ -56,6 +56,7 @@
     "no-surrogate-pair": true,
     "prh": {
       "rulePaths" :["prh.yml"]
-    }
+    },
+    "senovee-test": true,
   }
 }
