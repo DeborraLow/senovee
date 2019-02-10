@@ -1,9 +1,5 @@
 {
   "rules": {
-    "editorconfig": {
-      // 文字コードはチェックしない（判定に不具合があるため）
-      "charset": false
-    },
     "general-novel-style-ja": {
       // 各段落の先頭に許可する文字 (false: チェックしない)
       "chars_leading_paragraph": "　「『【〈《（(“\"‘'［[〔｛{＜<",
@@ -53,11 +49,11 @@
     "ja-hiragana-fukushi": true,
     "ja-hiragana-hojodoushi": true,
     "ja-unnatural-alphabet": false,
+    "ja-no-successive-word": true,
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": true,
     "prefer-tari-tari": true,
     "no-nfd": true,
     "no-surrogate-pair": true,
-    "ja-no-successive-word": true,
     "prh": {
       "rulePaths" :["prh.yml"]
     }
