@@ -4,7 +4,7 @@
   "description": "A personal boilerplate for writing novels with lint",
   "main": "index.js",
   "scripts": {
-    "test": "textlint \"src/**\""
+    "test": "textlint \"text/**\""
   },
   "repository": {
     "type": "git",
