@@ -21,6 +21,7 @@
   "homepage": "https://github.com/stak/senovee#readme",
   "dependencies": {
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": "^1.0.1",
+    "classnames": "^2.2.6",
     "gatsby": "^2.0.118",
     "gatsby-source-filesystem": "^2.0.20",
     "lodash": ">=4.17.5",

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import senoveeAst from 'senovee-ast';
 
 import styles from './line.module.css';
@@ -21,16 +22,14 @@ const Line = React.memo(({ body, type, symbol }) => {
   }, [type, body, symbol]);
 
   const builtBody = senoveeAst.buildLine({ body, type, symbol });
+  const className = classNames({
+    [styles.line]: true,
+    [styles.active]: active,
+    [styles[type]]: true,
+    [styles[symbol]]: symbol in styles,
+  });
 
-  return (
-    <p
-      className={`${styles.line} ${active ? styles.active : ''} ${
-        styles[type]
-      } ${styles[symbol] || ''}`}
-    >
-      {type === 'br' ? <br /> : builtBody}
-    </p>
-  );
+  return <p className={className}>{type === 'br' ? <br /> : builtBody}</p>;
 });
 
 Line.propTypes = astTypes;
