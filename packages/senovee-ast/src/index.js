@@ -29,6 +29,20 @@ const parseLine = (line) => {
       type: 'comment',
       body: trimed.slice(2).trim(),
     };
+  } else if (line.match(/^([a-zA-Z])(.*)/)) {
+    const [, symbol, rest] = line.match(/^([a-zA-Z])(.*)$/);
+    const restParsed = parseLine(rest);
+    if (['text', 'parenthesis', 'brackets'].indexOf(restParsed.type) >= 0) {
+      parseObject = {
+        ...restParsed,
+        symbol,
+      };
+    } else {
+      parseObject = {
+        type: 'unknown',
+        body: trimed,
+      };
+    }
   } else {
     parseObject = {
       type: 'unknown',

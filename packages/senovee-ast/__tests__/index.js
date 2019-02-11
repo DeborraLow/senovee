@@ -24,11 +24,20 @@ describe('senovee-ast', () => {
       expect(parse('　地の文')).toMatchObject([
         { type: 'text', body: '地の文' },
       ]);
+      expect(parse('A　地の文')).toMatchObject([
+        { type: 'text', body: '地の文', symbol: 'A' },
+      ]);
       expect(parse('「セリフ」')).toMatchObject([
         { type: 'brackets', body: 'セリフ' },
       ]);
+      expect(parse('A「セリフ」')).toMatchObject([
+        { type: 'brackets', body: 'セリフ', symbol: 'A' },
+      ]);
       expect(parse('（カッコ書き）')).toMatchObject([
         { type: 'parenthesis', body: 'カッコ書き' },
+      ]);
+      expect(parse('A（カッコ書き）')).toMatchObject([
+        { type: 'parenthesis', body: 'カッコ書き', symbol: 'A' },
       ]);
       expect(parse('// コメント')).toMatchObject([
         { type: 'comment', body: 'コメント' },
@@ -37,18 +46,19 @@ describe('senovee-ast', () => {
     it('works with multiline', () => {
       expect(
         parse(
-          '　これは最初の地の文です。\n　次の行ですよ。\n\n「おはようございます」\n\n（いや、もう夜だが……）'
+          'A　これは最初の地の文です。\nA　次の行ですよ。\n\n「おはようございます」\n\nO（いや、もう夜だが……）'
         )
       ).toMatchObject([
         {
           type: 'text',
           body: 'これは最初の地の文です。',
+          symbol: 'A',
         },
-        { type: 'text', body: '次の行ですよ。' },
+        { type: 'text', body: '次の行ですよ。', symbol: 'A' },
         { type: 'br', body: '' },
         { type: 'brackets', body: 'おはようございます' },
         { type: 'br', body: '' },
-        { type: 'parenthesis', body: 'いや、もう夜だが……' },
+        { type: 'parenthesis', body: 'いや、もう夜だが……', symbol: 'O' },
       ]);
     });
   });
@@ -71,6 +81,11 @@ describe('senovee-ast', () => {
         type: 'text',
         body: '。',
       });
+      expect(parseLine('B　Ｂが綴っている。')).toMatchObject({
+        type: 'text',
+        body: 'Ｂが綴っている。',
+        symbol: 'B',
+      });
       expect(parseLine('　「地の文だけどカッコで始まる場合」')).toMatchObject({
         type: 'text',
         body: '「地の文だけどカッコで始まる場合」',
@@ -85,6 +100,11 @@ describe('senovee-ast', () => {
         type: 'parenthesis',
         body: 'どういうこと？',
       });
+      expect(parseLine('X（私は誰？）')).toMatchObject({
+        type: 'parenthesis',
+        body: '私は誰？',
+        symbol: 'X',
+      });
       expect(parseLine('（（（強い）））')).toMatchObject({
         type: 'parenthesis',
         body: '（（強い））',
@@ -98,6 +118,11 @@ describe('senovee-ast', () => {
       expect(parseLine('「こんにちは」')).toMatchObject({
         type: 'brackets',
         body: 'こんにちは',
+      });
+      expect(parseLine('A「私はＡです」')).toMatchObject({
+        type: 'brackets',
+        body: '私はＡです',
+        symbol: 'A',
       });
       expect(parseLine('「「「「やっほー！！！」」」」')).toMatchObject({
         type: 'brackets',
@@ -127,6 +152,14 @@ describe('senovee-ast', () => {
         type: 'unknown',
         body: '↓',
       });
+      expect(parseLine('ABC')).toMatchObject({
+        type: 'unknown',
+        body: 'ABC',
+      });
+      expect(parseLine('jsです')).toMatchObject({
+        type: 'unknown',
+        body: 'jsです',
+      });
     });
     it('trims trailing whitespace', () => {
       expect(parseLine('　ここに空白が→→　　')).toMatchObject({
@@ -141,9 +174,10 @@ describe('senovee-ast', () => {
         type: 'brackets',
         body: 'そうだね',
       });
-      expect(parseLine('（そうか？）    　　')).toMatchObject({
+      expect(parseLine('O（そうか？）    　　')).toMatchObject({
         type: 'parenthesis',
         body: 'そうか？',
+        symbol: 'O',
       });
       expect(parseLine('// コメント --  ')).toMatchObject({
         type: 'comment',
@@ -165,7 +199,7 @@ describe('senovee-ast', () => {
         build([
           { type: 'text', body: '地の文' },
           { type: 'parenthesis', body: '考え事' },
-          { type: 'brackets', body: 'うにゃにゃ' },
+          { type: 'brackets', body: 'うにゃにゃ', symbol: 'A' },
           {
             type: 'comment',
             body: 'コメントはレンダリングされてはいかんのじゃ',
@@ -221,6 +255,17 @@ describe('senovee-ast', () => {
       );
       expect(buildLine({ type: 'unknown', body: 'ーーー' })).toBe('ーーー');
     });
+    it('does not render symbol', () => {
+      expect(buildLine({ type: 'brackets', body: 'あ', symbol: 'A' })).toBe(
+        '「あ」'
+      );
+      expect(
+        buildLine({ type: 'parenthesis', body: 'はいはい', symbol: 'B' })
+      ).toBe('（はいはい）');
+      expect(
+        buildLine({ type: 'text', body: 'と思う俺だった。', symbol: 'O' })
+      ).toBe('　と思う俺だった。');
+    });
   });
 
   describe('.compile', () => {
@@ -241,6 +286,11 @@ describe('senovee-ast', () => {
       expect(compile('　その時、天から声が響いた。\n\n「ワシじゃ」')).toBe(
         '　その時、天から声が響いた。\n\n「ワシじゃ」'
       );
+    });
+    it('does not render symbol', () => {
+      expect(compile('A「Ａでーす」')).toBe('「Ａでーす」');
+      expect(compile('B（Ｂです……）')).toBe('（Ｂです……）');
+      expect(compile('C　Ｃなんだよなあ……。')).toBe('　Ｃなんだよなあ……。');
     });
   });
 });
