@@ -23,6 +23,11 @@ const parseLine = (line) => {
       type: 'text',
       content: trimed,
     };
+  } else if (line.slice(0, 2) === '//') {
+    parseObject = {
+      type: 'comment',
+      content: trimed.slice(2),
+    };
   } else {
     parseObject = {
       type: 'unknown',
@@ -39,7 +44,24 @@ const parse = (str) => {
   return parsedLines;
 };
 
+const buildLine = (obj) => {
+  switch (obj.type) {
+    default:
+      return '';
+  }
+};
+
+const build = (ast) => ast.map(buildLine).join('\n');
+
+const compile = (str) => {
+  const ast = parse(str);
+  return build(ast);
+};
+
 module.exports = {
   parse,
   parseLine,
+  build,
+  buildLine,
+  compile,
 };
