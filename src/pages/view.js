@@ -18,7 +18,7 @@ const makeUniqKey = (array, propName, useLength = 5) => {
 };
 
 const ViewTemplate = ({ pageContext }) => {
-  const { raw, parsed } = pageContext;
+  const { parsed } = pageContext;
   const keys = makeUniqKey(parsed, 'body');
 
   return (
