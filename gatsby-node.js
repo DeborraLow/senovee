@@ -1,5 +1,6 @@
 const path = require(`path`);
 const fs = require('fs');
+const senoveeAst = require('senovee-ast');
 
 const onCreateNodeHandlers = [
   {
@@ -41,11 +42,15 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then(({ data }) => {
     data.allFile.edges.forEach(({ node }) => {
+      const text = fs.readFileSync(node.absolutePath, 'utf-8');
+
       createPage({
         path: `/view/${node.fields.slug}`,
         component: path.resolve(`./src/pages/view.js`),
         context: {
-          raw: fs.readFileSync(node.absolutePath, 'utf-8'),
+          raw: text,
+          parsed: senoveeAst.parse(text),
+          compiled: senoveeAst.compile(text),
         },
       });
     });
