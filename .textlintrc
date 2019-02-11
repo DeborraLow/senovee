@@ -2,7 +2,7 @@
   "rules": {
     "general-novel-style-ja": {
       // 各段落の先頭に許可する文字 (false: チェックしない)
-      "chars_leading_paragraph": "　「『【〈《（(“\"‘'［[〔｛{＜<",
+      "chars_leading_paragraph": false,
       // 閉じ括弧の手前に句読点(。、)を置かない
       "no_punctuation_at_closing_quote": true,
       // 疑問符(？)と感嘆符(！)の直後にスペースを置く
@@ -23,7 +23,7 @@
       "max_arabic_numeral_digits": false
     },
     "max-ten": {
-      "max": 3
+      "max": 6
     },
     "max-kanji-continuous-len": {
       "max": 5,
@@ -35,21 +35,17 @@
       "allow": []
     },
     "no-hankaku-kana": true,
-    "no-mixed-zenkaku-and-hankaku-alphabet": {
-      "prefer": "全角"
-    },
     "sentence-length": {
       "max": 100
     },
     "no-doubled-conjunctive-particle-ga": true,
     "no-doubled-conjunction": true,
-    "ja-no-mixed-period": true,
+    "ja-no-mixed-period": false,
     "ja-hiragana-keishikimeishi": true,
-    //"ja-hiragana-daimeishi": true,
     "ja-hiragana-fukushi": true,
     "ja-hiragana-hojodoushi": true,
     "ja-unnatural-alphabet": false,
-    "ja-no-successive-word": true,
+    "ja-no-successive-word": false,
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": true,
     "prefer-tari-tari": true,
     "no-nfd": true,
