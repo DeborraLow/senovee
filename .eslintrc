@@ -3,7 +3,8 @@
   "env": {
     "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "jest/globals": true
   },
   "extends": [
     "airbnb",
@@ -22,7 +23,8 @@
     "prettier",
     "react",
     "jsx-a11y",
-    "import"
+    "import",
+    "jest"
   ],
   "settings": {
     "react": {

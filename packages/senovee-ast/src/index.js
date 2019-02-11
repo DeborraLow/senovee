@@ -1,3 +1,5 @@
+const SP = '　';
+
 const parseLine = (line) => {
   const trimed = line.trim();
   let parseObject;
@@ -5,33 +7,32 @@ const parseLine = (line) => {
   if (trimed.length === 0) {
     parseObject = {
       type: 'br',
-      content: null,
+      body: '',
     };
-  }
-  if (line[0] === '（' && trimed[trimed.length - 1] === '）') {
+  } else if (line[0] === '（' && trimed[trimed.length - 1] === '）') {
     parseObject = {
       type: 'parenthesis',
-      content: line.slice(1, trimed.length - 1),
+      body: line.slice(1, trimed.length - 1),
     };
   } else if (line[0] === '「' && trimed[trimed.length - 1] === '」') {
     parseObject = {
       type: 'brackets',
-      content: line.slice(1, trimed.length - 1),
+      body: line.slice(1, trimed.length - 1),
     };
-  } else if (line[0] === '　') {
+  } else if (line[0] === SP) {
     parseObject = {
       type: 'text',
-      content: trimed,
+      body: trimed,
     };
   } else if (line.slice(0, 2) === '//') {
     parseObject = {
       type: 'comment',
-      content: trimed.slice(2),
+      body: trimed.slice(2).trim(),
     };
   } else {
     parseObject = {
       type: 'unknown',
-      content: trimed,
+      body: trimed,
     };
   }
   return parseObject;
@@ -46,12 +47,28 @@ const parse = (str) => {
 
 const buildLine = (obj) => {
   switch (obj.type) {
+    case 'text':
+      return `${SP}${obj.body}`;
+    case 'parenthesis':
+      return `（${obj.body}）`;
+    case 'brackets':
+      return `「${obj.body}」`;
+    case 'br':
+      return obj.body; // === ''
+    case 'comment':
+      return null;
+    case 'unknown':
+      return obj.body;
     default:
-      return '';
+      throw new Error(`unknown type ${obj.type}`);
   }
 };
 
-const build = (ast) => ast.map(buildLine).join('\n');
+const build = (ast) =>
+  ast
+    .map(buildLine)
+    .filter((line) => typeof line === 'string')
+    .join('\n');
 
 const compile = (str) => {
   const ast = parse(str);
