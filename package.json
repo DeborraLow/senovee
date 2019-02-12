@@ -7,7 +7,15 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "start": "npm run develop",
-    "test": "textlint \"text/**\""
+    "lint": "textlint \"text/**\"",
+    "test": "jest"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/public/",
+      "/.cache/"
+    ]
   },
   "repository": {
     "type": "git",
