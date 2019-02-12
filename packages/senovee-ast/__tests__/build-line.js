@@ -47,14 +47,14 @@ describe('senovee-ast', () => {
       ]);
     });
     it('recognizes type: "comment"', () => {
-      expect(buildLine({ type: 'comment', body: [''] })).toBe(null);
-      expect(buildLine({ type: 'comment', body: ['あ'] })).toBe(null);
+      expect(buildLine({ type: 'comment', body: [''] })).toMatchObject([]);
+      expect(buildLine({ type: 'comment', body: ['あ'] })).toMatchObject([]);
       expect(
         buildLine({
           type: 'comment',
           body: ['コメントに何が書いてあろうとも。'],
         })
-      ).toBe(null);
+      ).toMatchObject([]);
     });
     it('recognizes type: "unknown"', () => {
       expect(buildLine({ type: 'unknown', body: [''] })).toMatchObject(['']);

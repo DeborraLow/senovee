@@ -58,7 +58,7 @@ const parseLine = (line) => {
   if (trimmed.length === 0) {
     parseObject = {
       type: 'br',
-      body: [''],
+      body: [{ tag: 'br' }],
     };
   } else if (line[0] === '（' && trimmed[trimmed.length - 1] === '）') {
     parseObject = {
@@ -117,6 +117,9 @@ const buildTags = (bodyNodes) =>
       if (typeof node === 'string') {
         s = node;
       }
+      if (node.tag === 'br') {
+        s = '';
+      }
       if (node.tag === 'ruby') {
         s = `｜${node.target}《${node.ruby}》`;
       }
@@ -139,14 +142,14 @@ const buildLine = ({ body, type }) => {
     case 'unknown':
       return body;
     case 'comment':
-      return null;
+      return [];
     default:
       throw new Error(`unknown type ${type}`);
   }
 };
 
 const flattenAst = (ast) => {
-  const lines = ast.map(buildLine).filter((lineAst) => !!lineAst);
+  const lines = ast.map(buildLine).filter((lineAst) => lineAst.length > 0);
   return flatMap(lines, (line) => [...line, '\n']).slice(0, -1);
 };
 

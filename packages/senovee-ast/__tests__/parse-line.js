@@ -3,12 +3,30 @@ const { parseLine } = require('../src');
 describe('senovee-ast', () => {
   describe('.parseLine', () => {
     it('returns type: "br"', () => {
-      expect(parseLine('')).toMatchObject({ type: 'br', body: [''] });
-      expect(parseLine(' ')).toMatchObject({ type: 'br', body: [''] });
-      expect(parseLine('\t')).toMatchObject({ type: 'br', body: [''] });
-      expect(parseLine('  ')).toMatchObject({ type: 'br', body: [''] });
-      expect(parseLine('    ')).toMatchObject({ type: 'br', body: [''] });
-      expect(parseLine('　　')).toMatchObject({ type: 'br', body: [''] });
+      expect(parseLine('')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
+      expect(parseLine(' ')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
+      expect(parseLine('\t')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
+      expect(parseLine('  ')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
+      expect(parseLine('    ')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
+      expect(parseLine('　　')).toMatchObject({
+        type: 'br',
+        body: [{ tag: 'br' }],
+      });
     });
     it('returns type: "text"', () => {
       expect(parseLine('　ほげ')).toMatchObject({
@@ -106,7 +124,7 @@ describe('senovee-ast', () => {
       });
       expect(parseLine('     ')).toMatchObject({
         type: 'br',
-        body: [''],
+        body: [{ tag: 'br' }],
       });
       expect(parseLine('「そうだね」 ')).toMatchObject({
         type: 'brackets',

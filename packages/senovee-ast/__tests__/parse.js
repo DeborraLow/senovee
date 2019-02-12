@@ -3,10 +3,12 @@ const { parse } = require('../src');
 describe('senovee-ast', () => {
   describe('.parse', () => {
     it('works with null string', () => {
-      expect(parse('')).toMatchObject([{ type: 'br', body: [''] }]);
+      expect(parse('')).toMatchObject([{ type: 'br', body: [{ tag: 'br' }] }]);
     });
     it('works with single line', () => {
-      expect(parse('　')).toMatchObject([{ type: 'br', body: [''] }]);
+      expect(parse('　')).toMatchObject([
+        { type: 'br', body: [{ tag: 'br' }] },
+      ]);
       expect(parse('あいうえお')).toMatchObject([
         { type: 'unknown', body: ['あいうえお'] },
       ]);
@@ -44,9 +46,9 @@ describe('senovee-ast', () => {
           symbol: 'A',
         },
         { type: 'text', body: ['次の行ですよ。'], symbol: 'A' },
-        { type: 'br', body: [''] },
+        { type: 'br', body: [{ tag: 'br' }] },
         { type: 'brackets', body: ['おはようございます'] },
-        { type: 'br', body: [''] },
+        { type: 'br', body: [{ tag: 'br' }] },
         { type: 'parenthesis', body: ['いや、もう夜だが……'], symbol: 'O' },
       ]);
     });
