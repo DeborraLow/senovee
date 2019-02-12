@@ -127,31 +127,30 @@ const buildTags = (bodyNodes) =>
     })
     .join('');
 
-const buildLine = (obj) => {
-  const body = buildTags(obj.body);
-  switch (obj.type) {
+const buildLine = ({ body, type }) => {
+  switch (type) {
     case 'text':
-      return `${SP}${body}`;
+      return [SP, ...body];
     case 'parenthesis':
-      return `（${body}）`;
+      return ['（', ...body, '）'];
     case 'brackets':
-      return `「${body}」`;
+      return ['「', ...body, '」'];
     case 'br':
+    case 'unknown':
       return body;
     case 'comment':
       return null;
-    case 'unknown':
-      return body;
     default:
-      throw new Error(`unknown type ${obj.type}`);
+      throw new Error(`unknown type ${type}`);
   }
 };
 
-const build = (ast) =>
-  ast
-    .map(buildLine)
-    .filter((line) => typeof line === 'string')
-    .join('\n');
+const flattenAst = (ast) => {
+  const lines = ast.map(buildLine).filter((lineAst) => !!lineAst);
+  return flatMap(lines, (line) => [...line, '\n']).slice(0, -1);
+};
+
+const build = (ast) => buildTags(flattenAst(ast));
 
 const compile = (str) => {
   const ast = parse(str);
