@@ -10,6 +10,7 @@ describe('senovee-ast', () => {
     expect(ast).toHaveProperty('parseTags');
     expect(ast).toHaveProperty('build');
     expect(ast).toHaveProperty('buildLine');
+    expect(ast).toHaveProperty('buildTags');
     expect(ast).toHaveProperty('compile');
   });
 

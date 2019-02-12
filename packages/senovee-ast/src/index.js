@@ -110,22 +110,38 @@ const parse = (str) => {
   return parsedLines;
 };
 
-const buildInline = (str) => {};
+const buildTags = (bodyNodes) =>
+  bodyNodes
+    .map((node) => {
+      let s;
+      if (typeof node === 'string') {
+        s = node;
+      }
+      if (node.tag === 'ruby') {
+        s = `｜${node.target}《${node.ruby}》`;
+      }
+      if (node.tag === 'mark') {
+        s = `｜${node.target}《${'・'.repeat(node.target.length)}》`;
+      }
+      return s;
+    })
+    .join('');
 
 const buildLine = (obj) => {
+  const body = buildTags(obj.body);
   switch (obj.type) {
     case 'text':
-      return `${SP}${obj.body}`;
+      return `${SP}${body}`;
     case 'parenthesis':
-      return `（${obj.body}）`;
+      return `（${body}）`;
     case 'brackets':
-      return `「${obj.body}」`;
+      return `「${body}」`;
     case 'br':
-      return obj.body; // === ''
+      return body;
     case 'comment':
       return null;
     case 'unknown':
-      return obj.body;
+      return body;
     default:
       throw new Error(`unknown type ${obj.type}`);
   }
@@ -148,5 +164,6 @@ module.exports = {
   parseTags,
   build,
   buildLine,
+  buildTags,
   compile,
 };
