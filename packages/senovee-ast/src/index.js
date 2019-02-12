@@ -27,28 +27,28 @@ const tagMapper = (pattern, handler) => (src) => {
 };
 
 const parseTags = (body) => {
-  let part = [body];
+  let bodyNodes = [body];
   const chars = '[^|｜《》]+';
   const rubyPattern = `[|｜](${chars})《(${chars})》`;
   const markPattern = `《《(${chars})》》`;
 
-  part = flatMap(
-    part,
+  bodyNodes = flatMap(
+    bodyNodes,
     tagMapper(rubyPattern, ([, target, ruby]) => ({
       tag: 'ruby',
       target,
       ruby,
     }))
   );
-  part = flatMap(
-    part,
+  bodyNodes = flatMap(
+    bodyNodes,
     tagMapper(markPattern, ([, target]) => ({
       tag: 'mark',
       target,
     }))
   );
 
-  return part;
+  return bodyNodes;
 };
 
 const parseLine = (line) => {
