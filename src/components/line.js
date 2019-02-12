@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import senoveeAst from 'senovee-ast';
 
+import Ruby from './ruby';
+import Mark from './mark';
 import styles from './line.module.css';
 
 const astTypes = {
@@ -10,6 +12,24 @@ const astTypes = {
   type: PropTypes.string.isRequired,
   symbol: PropTypes.string,
 };
+
+const astToComponent = (ast) =>
+  ast.map((node) => {
+    let s;
+    if (typeof node === 'string') {
+      s = node;
+    }
+    if (node.tag === 'br') {
+      s = <br />;
+    }
+    if (node.tag === 'ruby') {
+      s = <Ruby ruby={node.ruby}>{node.target}</Ruby>;
+    }
+    if (node.tag === 'mark') {
+      s = <Mark>{node.target}</Mark>;
+    }
+    return s;
+  });
 
 const Line = React.memo(({ body, type, symbol }) => {
   const [active, setActive] = useState(false);
@@ -21,7 +41,9 @@ const Line = React.memo(({ body, type, symbol }) => {
     }, 200);
   }, [type, body, symbol]);
 
-  const builtBody = senoveeAst.buildLine({ body, type, symbol });
+  const lineAst = senoveeAst.buildLine({ body, type, symbol });
+  const components = astToComponent(lineAst);
+
   const className = classNames({
     [styles.line]: true,
     [styles.active]: active,
@@ -29,7 +51,7 @@ const Line = React.memo(({ body, type, symbol }) => {
     [styles[symbol]]: symbol in styles,
   });
 
-  return <p className={className}>{type === 'br' ? <br /> : builtBody}</p>;
+  return <p className={className}>{components}</p>;
 });
 
 Line.propTypes = astTypes;
