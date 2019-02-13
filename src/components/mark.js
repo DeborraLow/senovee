@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Mark = ({ ruby, children }) => {
+const Mark = ({ children }) => {
   const child = typeof children === 'string' ? children : children[0];
   return (
     <ruby>
@@ -11,7 +11,6 @@ const Mark = ({ ruby, children }) => {
   );
 };
 Mark.propTypes = {
-  ruby: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
 };
 
