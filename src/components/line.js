@@ -51,7 +51,7 @@ const Line = React.memo(({ body, type, symbol }) => {
     [styles[symbol]]: symbol in styles,
   });
 
-  return <p className={className}>{components}</p>;
+  return <div className={className}>{components}</div>;
 });
 
 Line.propTypes = astTypes;
