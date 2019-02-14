@@ -1,20 +1,10 @@
 import React from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import PropTypes from 'prop-types';
+import List from '../components/list';
 
-const IndexPage = ({ data }) => {
-  const viewLinks = data.allFile.edges.map(({ node }) => (
-    <Link key={node.relativePath} to={`/view/${node.fields.slug}`}>
-      <li>{node.fields.slug}</li>
-    </Link>
-  ));
-  return (
-    <>
-      <h1>senovee</h1>
-      <ul>{viewLinks}</ul>
-    </>
-  );
-};
+const IndexPage = ({ data }) => <List nodes={data.allFile.edges} />;
+
 IndexPage.propTypes = {
   data: PropTypes.object.isRequired,
 };
