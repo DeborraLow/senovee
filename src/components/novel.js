@@ -35,7 +35,7 @@ Novel.propTypes = {
   styleName: PropTypes.string,
 };
 Novel.defaultProps = {
-  styleName: 'kakuyomu',
+  styleName: 'narou',
 };
 
 export default Novel;
