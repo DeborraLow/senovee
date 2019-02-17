@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Line from './line';
+import styles from './novel.module.css';
 
 const makeUniqKey = (array, propName, useLength = 5) => {
   const cache = {};
@@ -17,18 +18,24 @@ const makeUniqKey = (array, propName, useLength = 5) => {
   return keys;
 };
 
-const Novel = ({ ast }) => {
+const Novel = ({ ast, styleName }) => {
   const keys = makeUniqKey(ast, 'body');
   return (
     <div>
-      {ast.map((o, i) => (
-        <Line key={keys[i]} {...o} />
-      ))}
+      <div className={styles[styleName]}>
+        {ast.map((o, i) => (
+          <Line key={keys[i]} {...o} />
+        ))}
+      </div>
     </div>
   );
 };
 Novel.propTypes = {
   ast: PropTypes.arrayOf(PropTypes.object).isRequired,
+  styleName: PropTypes.string,
+};
+Novel.defaultProps = {
+  styleName: 'kakuyomu',
 };
 
 export default Novel;
