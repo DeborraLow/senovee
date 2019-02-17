@@ -52,23 +52,29 @@
 }
 .ruby::before {
   content: attr(data-ruby);
-  position: absolute;
-  left: 0;
-  right: 0;
+  display: block;
   margin: auto;
+  line-height: 1.0;
+
+  font-size: 0.5em;
+  letter-spacing: 1px;
+  text-align: center;
   word-wrap: none;
   word-break: keep-all;
   white-space: nowrap;
-  font-size: 0.5em;
-  text-align: center;
-  letter-spacing: 1px;
 }
-.narou .ruby::before {
-  top: -2.1em;
+.fixed .ruby::before {
+  position: absolute;
+  left: 0;
+  right: 0;
 }
-.kakuyomu .ruby::before {
-  top: -1.5em;
+.fixed.narou .ruby::before {
+  top: -.8em;
 }
+.fixed.kakuyomu .ruby::before {
+  top: -.9em;
+}
+
 
 .ruby > span.hidden {
   opacity: 0;

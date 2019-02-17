@@ -50,6 +50,7 @@ const Line = React.memo(({ body, type, symbol, styleName }) => {
 
   const className = classNames({
     [styles[styleName]]: true,
+    [styles.fixed]: true,
     [styles.line]: true,
     [styles.active]: active,
     [styles[`type_${type}`]]: true,
