@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './mark.module.css';
 
-const Mark = ({ children }) => {
+const Mark = ({ children, styles }) => {
   const child = typeof children === 'string' ? children : children[0];
 
   return (
@@ -18,6 +17,7 @@ const Mark = ({ children }) => {
 };
 Mark.propTypes = {
   children: PropTypes.string.isRequired,
+  styles: PropTypes.object.isRequired,
 };
 
 export default Mark;

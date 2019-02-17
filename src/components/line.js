@@ -8,7 +8,7 @@ import Mark from './mark';
 import styles from './line.module.css';
 
 const astTypes = {
-  body: PropTypes.string.isRequired,
+  body: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
   type: PropTypes.string.isRequired,
   symbol: PropTypes.string,
 };
@@ -23,15 +23,19 @@ const astToComponent = (ast) =>
       s = <br />;
     }
     if (node.tag === 'ruby') {
-      s = <Ruby ruby={node.ruby}>{node.target}</Ruby>;
+      s = (
+        <Ruby styles={styles} ruby={node.ruby}>
+          {node.target}
+        </Ruby>
+      );
     }
     if (node.tag === 'mark') {
-      s = <Mark>{node.target}</Mark>;
+      s = <Mark styles={styles}>{node.target}</Mark>;
     }
     return s;
   });
 
-const Line = React.memo(({ body, type, symbol }) => {
+const Line = React.memo(({ body, type, symbol, styleName }) => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -45,15 +49,18 @@ const Line = React.memo(({ body, type, symbol }) => {
   const components = astToComponent(lineAst);
 
   const className = classNames({
+    [styles[styleName]]: true,
     [styles.line]: true,
     [styles.active]: active,
-    [styles[type]]: true,
-    [styles[symbol]]: symbol in styles,
+    [styles[`type_${type}`]]: true,
+    [styles[`symbol_${symbol}`]]: symbol in styles,
   });
 
   return <div className={className}>{components}</div>;
 });
 
-Line.propTypes = astTypes;
-Line.defaultProps = { symbol: null };
+Line.propTypes = {
+  ...astTypes,
+  styleName: PropTypes.string.isRequired,
+};
 export default Line;

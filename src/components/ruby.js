@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './ruby.module.css';
 
-const Ruby = ({ ruby, children }) => {
+const Ruby = ({ ruby, children, styles }) => {
   const child = typeof children === 'string' ? children : children[0];
   return (
     <ruby className={styles.ruby} data-ruby={ruby}>
@@ -16,6 +15,7 @@ const Ruby = ({ ruby, children }) => {
 Ruby.propTypes = {
   ruby: PropTypes.string.isRequired,
   children: PropTypes.string.isRequired,
+  styles: PropTypes.object.isRequired,
 };
 
 export default Ruby;

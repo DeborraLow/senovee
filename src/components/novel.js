@@ -24,7 +24,7 @@ const Novel = ({ ast, styleName }) => {
     <div>
       <div className={styles[styleName]}>
         {ast.map((o, i) => (
-          <Line key={keys[i]} {...o} />
+          <Line styleName={styleName} key={keys[i]} {...o} />
         ))}
       </div>
     </div>
@@ -35,7 +35,7 @@ Novel.propTypes = {
   styleName: PropTypes.string,
 };
 Novel.defaultProps = {
-  styleName: 'narou',
+  styleName: 'kakuyomu',
 };
 
 export default Novel;
