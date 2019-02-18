@@ -1,20 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'gatsby';
+import { StaticQuery, graphql, Link } from 'gatsby';
 
-const List = ({ nodes }) => (
-  <>
-    <ul>
-      {nodes.map(({ node }) => (
-        <Link key={node.relativePath} to={`/view/${node.fields.slug}`}>
-          <li>{node.fields.slug}</li>
-        </Link>
-      ))}
-    </ul>
-  </>
+const ListRender = (data) => (
+  <ul>
+    {data.allFile.edges.map(({ node }) => (
+      <Link key={node.relativePath} to={`/view/${node.fields.slug}`}>
+        <li>{node.fields.slug}</li>
+      </Link>
+    ))}
+  </ul>
 );
-List.propTypes = {
-  nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+
+const List = () => (
+  <StaticQuery
+    render={ListRender}
+    query={graphql`
+      query FileCollection {
+        allFile(sort: { order: ASC, fields: [relativePath] }) {
+          edges {
+            node {
+              relativeDirectory
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `}
+  />
+);
 
 export default List;

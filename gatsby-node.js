@@ -4,13 +4,35 @@ const senoveeAst = require('senovee-ast');
 
 const onCreateNodeHandlers = [
   {
-    name: 'addFileSlug',
+    name: 'addNovelSlug',
     targetType: ['File'],
     handler: ({ node, actions }) => {
       actions.createNodeField({
         node,
         name: 'slug',
-        value: node.relativePath.replace(/\//g, '_').slice(0, -node.ext.length),
+        value: node.relativePath.slice(0, -node.ext.length),
+      });
+    },
+  },
+  {
+    name: 'addNovelBody',
+    targetType: ['File'],
+    handler: ({ node, actions }) => {
+      actions.createNodeField({
+        node,
+        name: 'body',
+        value: fs.readFileSync(node.absolutePath, 'utf-8'),
+      });
+    },
+  },
+  {
+    name: 'addNovelTitle',
+    targetType: ['File'],
+    handler: ({ node, actions }) => {
+      actions.createNodeField({
+        node,
+        name: 'title',
+        value: node.name.slice(node.name.indexOf('_') + 1),
       });
     },
   },
@@ -34,23 +56,22 @@ exports.createPages = ({ graphql, actions }) => {
           node {
             fields {
               slug
+              body
+              title
             }
-            absolutePath
           }
         }
       }
     }
   `).then(({ data }) => {
     data.allFile.edges.forEach(({ node }) => {
-      const text = fs.readFileSync(node.absolutePath, 'utf-8');
-
       createPage({
         path: `/view/${node.fields.slug}`,
         component: path.resolve(`./src/pages/view.js`),
         context: {
-          raw: text,
-          parsed: senoveeAst.parse(text),
-          compiled: senoveeAst.compile(text),
+          src: node.fields.body,
+          ast: senoveeAst.parse(node.fields.body),
+          out: senoveeAst.compile(node.fields.body),
         },
       });
     });

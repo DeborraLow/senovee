@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Novel from '../components/novel';
 
 const ViewTemplate = ({ pageContext }) => {
-  const { parsed } = pageContext;
+  const { ast } = pageContext;
 
-  return <Novel ast={parsed} />;
+  return <Novel ast={ast} />;
 };
 
 ViewTemplate.propTypes = {
