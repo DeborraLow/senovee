@@ -21,7 +21,7 @@ const makeUniqKey = (array, propName, useLength = 5) => {
 const Novel = ({ ast, styleName }) => {
   const keys = makeUniqKey(ast, 'body');
   return (
-    <div>
+    <div className={styles.novel}>
       <div className={styles[styleName]}>
         {ast.map((o, i) => (
           <Line styleName={styleName} key={keys[i]} {...o} />

@@ -1,4 +1,6 @@
 .list {
+  flex: 0 0 300px;
+
   font-size: 0.9rem;
   margin: 0;
   padding: 0;

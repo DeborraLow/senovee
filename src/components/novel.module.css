@@ -1,3 +1,8 @@
+.novel {
+  flex: 0 1 auto;
+  padding: 1em;
+}
+
 .kakuyomu {
   max-width: 665px;
   margin: 0 auto;
