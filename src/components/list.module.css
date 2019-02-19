@@ -1,0 +1,62 @@
+.list {
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #f3f2f1;
+}
+
+/* link ------------------------------------- */
+.list a {
+  display: block;
+  text-decoration: none;
+  color: #666;
+}
+.list a:visited {
+  color: #888;
+}
+.list a:hover {
+  text-decoration: underline;
+  color: cornflowerblue;
+}
+
+/* group ------------------------------------ */
+.list-group.lv0 {
+  display: none;
+}
+
+.list-group.lv1 {
+  color: #888;
+  background-color: #eaeaea;
+  border-top: #ddd 1px solid;
+  padding: 1.5em 0 0.3em 0;
+  text-align: center;
+}
+.list-item + .list-group.lv1,
+.list-group.lv1 + .list-group.lv1,
+.list-group.lv2 + .list-group.lv1 {
+  margin-top: 1em;
+}
+
+.list-group.lv2 {
+  margin: 0 10px 0 10px;
+  padding: 1.2em 0 0 0;
+  font-size: 90%;
+  color: #444 !important;
+  border-bottom: #ddd 1px solid;
+}
+
+/* item ------------------------------------- */
+.list-item {
+  margin: 0 10px 0 10px;
+  padding: 0.8em 0 0.8em 0;
+  font-size: 100%;
+  border-bottom: #ddd 1px solid;
+}
+
+.list-item.lv3 + .list-item.lv2,
+.list-item.lv3 + .list-item.lv1,
+.list-item.lv2 + .list-item.lv1 {
+  margin-top: 0.5em;
+  border-top: #ddd 1px solid;
+}
