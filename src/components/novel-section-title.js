@@ -1,0 +1,19 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import styles from './novel.module.css';
+
+const NovelSectionTitle = ({ children, styleName }) => {
+  const className = classNames({
+    [styles.sectionTitle]: true,
+    [styles[styleName]]: true,
+  });
+
+  return <h3 className={className}>{children}</h3>;
+};
+NovelSectionTitle.propTypes = {
+  children: PropTypes.string.isRequired,
+  styleName: PropTypes.string.isRequired,
+};
+
+export default NovelSectionTitle;

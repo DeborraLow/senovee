@@ -5,19 +5,20 @@ import Layout from '../components/layout';
 import List from '../components/list';
 import Novel from '../components/novel';
 
-const ViewTemplate = ({ data }) => {
-  const nodes = data.allFile.edges.map(({ node }) => node);
+const ViewTemplate = ({ data, pageContext }) => {
+  const nodes = data.allFile.edges;
 
   return (
     <Layout>
       <List />
-      <Novel src={nodes[0].fields.body} title={nodes[0].fields.title} />
+      <Novel root={pageContext.slug} nodes={nodes} />
     </Layout>
   );
 };
 
 ViewTemplate.propTypes = {
   data: PropTypes.object.isRequired,
+  pageContext: PropTypes.object.isRequired,
 };
 
 export const query = graphql`
