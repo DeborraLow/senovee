@@ -10,7 +10,11 @@ const NovelSectionTitle = ({ children, level, styleName }) => {
     [styles[`lv${level}`]]: true,
   });
 
-  return <h3 className={className}>{children}</h3>;
+  return (
+    <h3 className={className}>
+      <span>{children}</span>
+    </h3>
+  );
 };
 NovelSectionTitle.propTypes = {
   children: PropTypes.string.isRequired,

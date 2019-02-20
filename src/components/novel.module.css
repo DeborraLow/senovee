@@ -27,12 +27,63 @@
   font-family: "メイリオ", "Meiryo", 'Lucida Grande', "sans-serif";
 }
 
+.section-title.kakuyomu {
+  max-width: 665px;
+  margin: 3rem auto 2rem;
+  line-height: 1.2;
+  font-family: "dcsymbols", "Helvetica Neue", Helvetica, Arial, "ヒラギノ角ゴ Pr6N", "Hiragino Kaku Gothic Pr6N", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ StdN", "Hiragino Kaku Gothic StdN", "Segoe UI", Verdana, "メイリオ", "Meiryo", sans-serif;
+  text-align: center;
+}
 
+.section-title.lv0.kakuyomu { /* title */
+  font-size: 42px;
+  font-weight: 700;
+}
+.section-title.lv1.kakuyomu { /* part */
+  font-size: 38.5px;
+  font-weight: 400;
+  color: #888;
+}
+.section-title.lv2.kakuyomu { /* chapter */
+  position: relative;
+
+  font-weight: 400;
+  font-size: 24.5px;
+  color: #222;
+}
+    .section-title.lv2.kakuyomu > span {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      padding: 0 .5em;
+
+      background: #fff;
+    }
+    .section-title.lv2.kakuyomu::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 0;
+      border-top: 1px solid #bcbfbf;
+    }
+
+.section-title.lv0.narou { /* title */
+
+}
+.section-title.lv1.narou { /* part */
+
+}
+.section-title.lv2.narou { /* chapter */
+
+}
 
 .episode-title.kakuyomu {
   margin: 2rem auto 60px;
   font-family: "dcsymbols", "Helvetica Neue", Helvetica, Arial, "ヒラギノ角ゴ Pr6N", "Hiragino Kaku Gothic Pr6N", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ StdN", "Hiragino Kaku Gothic StdN", "Segoe UI", Verdana, "メイリオ", "Meiryo", sans-serif;
-  font-size: 1.75em;
+  font-size: 24.5px;
+  font-weight: 400;
   text-align: center;
   color: #222;
 }
