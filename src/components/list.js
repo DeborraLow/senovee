@@ -47,7 +47,7 @@ const makeTree = (nodes) => {
             relativePath: node.relativeDirectory,
             relativeDirectory: dirs.slice(0, i).join('/'),
             fields: {
-              slug: dir,
+              slug: node.relativeDirectory,
               title: dir.slice(dir.indexOf('_') + 1),
             },
             children: {},

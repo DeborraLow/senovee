@@ -53,6 +53,7 @@ exports.createPages = ({ graphql, actions }) => {
       allFile {
         edges {
           node {
+            relativeDirectory
             fields {
               slug
               body
@@ -63,13 +64,29 @@ exports.createPages = ({ graphql, actions }) => {
       }
     }
   `).then(({ data }) => {
+    const createdDirs = {};
+
     data.allFile.edges.forEach(({ node }) => {
+      const dirs = node.relativeDirectory.split('/');
+      dirs.forEach((dir, i) => {
+        const sectionDir = dirs.slice(0, i + 1).join('/');
+        if (!createdDirs[sectionDir]) {
+          createdDirs[sectionDir] = true;
+
+          createPage({
+            path: `/view/${sectionDir}`,
+            component: path.resolve(`./src/template/view.js`),
+            context: {
+              regex: `/^${sectionDir}.*$/`,
+            },
+          });
+        }
+      });
       createPage({
         path: `/view/${node.fields.slug}`,
-        component: path.resolve(`./src/pages/view.js`),
+        component: path.resolve(`./src/template/view.js`),
         context: {
-          src: node.fields.body,
-          title: node.fields.title,
+          regex: `/^${node.fields.slug}.*$/`,
         },
       });
     });
