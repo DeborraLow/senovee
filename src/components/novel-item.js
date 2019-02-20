@@ -6,7 +6,7 @@ import NovelSectionTitle from './novel-section-title';
 const NovelItem = ({ node, styleName }) => {
   return node.isDir ? (
     <>
-      <NovelSectionTitle level={node.depth} styleName={styleName}>
+      <NovelSectionTitle level={node.level} styleName={styleName}>
         {node.fields.title}
       </NovelSectionTitle>
       {Object.values(node.children).map((child) => (

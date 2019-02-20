@@ -27,7 +27,7 @@ const List = () => {
   const root = makeTree(data.allFile.edges);
   return (
     <ol className={styles.list}>
-      <ListGroup node={root} level={0} />
+      <ListGroup node={root} level={root.level} />
     </ol>
   );
 };

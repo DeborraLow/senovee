@@ -5,17 +5,17 @@ import classNames from 'classnames';
 import ListItem from './list-item';
 import styles from './list.module.css';
 
-const ListGroup = ({ node, level }) => {
+const ListGroup = ({ node }) => {
   const childNodes = Object.values(node.children).map((obj) =>
     obj.isDir ? (
-      <ListGroup key={obj.relativePath} node={obj} level={level + 1} />
+      <ListGroup key={obj.relativePath} node={obj} />
     ) : (
-      <ListItem key={obj.relativePath} node={obj} level={level + 1} />
+      <ListItem key={obj.relativePath} node={obj} />
     )
   );
   const className = classNames({
     [styles.listGroup]: true,
-    [styles[`lv${level}`]]: true,
+    [styles[`lv${node.level}`]]: true,
   });
 
   return (
@@ -32,7 +32,6 @@ ListGroup.propTypes = {
     isDir: PropTypes.bool.isRequired,
     children: PropTypes.object.isRequired,
   }).isRequired,
-  level: PropTypes.number.isRequired,
 };
 
 export default ListGroup;

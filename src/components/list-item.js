@@ -4,10 +4,10 @@ import { Link } from 'gatsby';
 import classNames from 'classnames';
 import styles from './list.module.css';
 
-const ListGroup = ({ node, level }) => {
+const ListGroup = ({ node }) => {
   const className = classNames({
     [styles.listItem]: true,
-    [styles[`lv${level}`]]: true,
+    [styles[`lv${node.level}`]]: true,
   });
 
   return (
@@ -18,7 +18,6 @@ const ListGroup = ({ node, level }) => {
 };
 ListGroup.propTypes = {
   node: PropTypes.object.isRequired,
-  level: PropTypes.number.isRequired,
 };
 
 export default ListGroup;

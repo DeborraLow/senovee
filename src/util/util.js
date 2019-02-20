@@ -2,9 +2,12 @@ export const flat = (array) => array.reduce((acc, v) => acc.concat(v), []);
 export const flatMap = (array, f) =>
   array.reduce((acc, v) => [...acc, ...f(v)], []);
 
+export const MAX_DIR_LEVEL = 2;
+
 export const makeTree = (nodes) => {
   const root = {
     isDir: true,
+    level: 0,
     name: '',
     relativePath: '',
     relativeDirectory: '',
@@ -24,6 +27,7 @@ export const makeTree = (nodes) => {
         if (!current[dir]) {
           current[dir] = {
             isDir: true,
+            level: i + 1,
             name: dir,
             relativePath: node.relativeDirectory,
             relativeDirectory: dirs.slice(0, i).join('/'),
