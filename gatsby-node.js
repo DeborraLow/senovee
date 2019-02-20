@@ -1,6 +1,5 @@
 const path = require(`path`);
 const fs = require('fs');
-const senoveeAst = require('senovee-ast');
 
 const onCreateNodeHandlers = [
   {
@@ -70,6 +69,7 @@ exports.createPages = ({ graphql, actions }) => {
         component: path.resolve(`./src/pages/view.js`),
         context: {
           src: node.fields.body,
+          title: node.fields.title,
         },
       });
     });

@@ -1,39 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Line from './line';
+import classNames from 'classnames';
+import NovelEpisode from './novel-episode';
 import styles from './novel.module.css';
 
-const makeUniqKey = (array, useLength = 5) => {
-  const cache = {};
-  const keys = [];
-  for (let i = 0; i < array.length; i += 1) {
-    const key = array[i].slice(0, useLength);
-    if (!cache[key]) {
-      cache[key] = 0;
-    }
-    keys.push(`${key}_${cache[key]}`);
-    cache[key] += 1;
-  }
-
-  return keys;
-};
-
-const Novel = ({ src, styleName }) => {
-  const srcLines = src.split('\n');
-  const keys = makeUniqKey(srcLines);
-
+const Novel = ({ src, title, styleName }) => {
+  const className = classNames({
+    [styles.novelContent]: true,
+    [styles[styleName]]: true,
+  });
   return (
     <div className={styles.novel}>
-      <div className={styles[styleName]}>
-        {srcLines.map((srcLine, i) => (
-          <Line styleName={styleName} key={keys[i]} src={srcLine} />
-        ))}
+      <div className={className}>
+        <NovelEpisode src={src} title={title} styleName={styleName} />
       </div>
     </div>
   );
 };
 Novel.propTypes = {
   src: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   styleName: PropTypes.string,
 };
 Novel.defaultProps = {

@@ -1,11 +1,13 @@
 .novel {
-  flex: 0 1 auto;
-  padding: 1em;
+  flex: 1 1 auto;
 }
 
-.kakuyomu {
-  max-width: 665px;
-  margin: 0 auto;
+.novel-content.kakuyomu {
+  /* max-width: 665px; */
+  min-width: 740px;
+  margin: 0;
+  padding: 0 20px;
+  box-sizing: border-box;
 
   line-height: 1.8;
   font-size: 17.5px;
@@ -15,10 +17,39 @@
   -webkit-font-smoothing: antialiased;
 }
 
-.narou {
-  width: 600px;
+.novel-content.narou {
+  width: 730px;
 
   line-height: 28.8px;
   font-size: 16px;
   font-family: "メイリオ", "Meiryo", 'Lucida Grande', "sans-serif";
+}
+
+
+
+.episode-title.kakuyomu {
+  margin: 2rem auto 60px;
+  font-family: "dcsymbols", "Helvetica Neue", Helvetica, Arial, "ヒラギノ角ゴ Pr6N", "Hiragino Kaku Gothic Pr6N", "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "ヒラギノ角ゴ StdN", "Hiragino Kaku Gothic StdN", "Segoe UI", Verdana, "メイリオ", "Meiryo", sans-serif;
+  font-size: 1.75em;
+  text-align: center;
+  color: #222;
+}
+
+.episode-body.kakuyomu {
+  margin: 0 auto;
+  max-width: 665px;
+}
+
+.episode-title.narou {
+  margin: 0 auto 10px;
+  font-size: 170%;
+  line-height: 150%;
+  text-align: center;
+  color: #444;
+}
+
+.episode-body.narou {
+  width: 600px;
+  margin: 30px auto 50px;
+  padding: 0 20px 0 20px;
 }
