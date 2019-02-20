@@ -5,12 +5,12 @@ import List from '../components/list';
 import Novel from '../components/novel';
 
 const ViewTemplate = ({ pageContext }) => {
-  const { ast } = pageContext;
+  const { src } = pageContext;
 
   return (
     <Layout>
       <List />
-      <Novel ast={ast} />
+      <Novel src={src} />
     </Layout>
   );
 };

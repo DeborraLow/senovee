@@ -70,8 +70,6 @@ exports.createPages = ({ graphql, actions }) => {
         component: path.resolve(`./src/pages/view.js`),
         context: {
           src: node.fields.body,
-          ast: senoveeAst.parse(node.fields.body),
-          out: senoveeAst.compile(node.fields.body),
         },
       });
     });

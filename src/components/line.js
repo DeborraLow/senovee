@@ -7,12 +7,6 @@ import Ruby from './ruby';
 import Mark from './mark';
 import styles from './line.module.css';
 
-const astTypes = {
-  body: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-  type: PropTypes.string.isRequired,
-  symbol: PropTypes.string,
-};
-
 const astToComponent = (ast) =>
   ast.map((node) => {
     let s;
@@ -35,7 +29,7 @@ const astToComponent = (ast) =>
     return s;
   });
 
-const Line = React.memo(({ body, type, symbol, styleName }) => {
+const Line = React.memo(({ src, styleName }) => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -43,25 +37,26 @@ const Line = React.memo(({ body, type, symbol, styleName }) => {
     setTimeout(() => {
       setActive(false);
     }, 200);
-  }, [type, body, symbol]);
+  }, [src]);
 
-  const lineAst = senoveeAst.buildLine({ body, type, symbol });
-  const components = astToComponent(lineAst);
+  const lineAst = senoveeAst.parseLine(src);
+  const convertedAst = senoveeAst.buildLine(lineAst);
+  const components = astToComponent(convertedAst);
 
   const className = classNames({
     [styles[styleName]]: true,
     [styles.fixed]: true,
     [styles.line]: true,
     [styles.active]: active,
-    [styles[`type_${type}`]]: true,
-    [styles[`symbol_${symbol}`]]: symbol in styles,
+    [styles[`type_${lineAst.type}`]]: true,
+    [styles[`symbol_${lineAst.symbol}`]]: lineAst.symbol in styles,
   });
 
   return <div className={className}>{components}</div>;
 });
 
 Line.propTypes = {
-  ...astTypes,
+  src: PropTypes.string.isRequired,
   styleName: PropTypes.string.isRequired,
 };
 export default Line;
