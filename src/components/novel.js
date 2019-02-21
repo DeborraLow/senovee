@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
 import classNames from 'classnames';
-import NovelItem from './novel-item';
+import NovelSection from './novel-section';
+import NovelEpisode from './novel-episode';
 import { makeTree } from '../util/util';
 import styles from './novel.module.css';
 
@@ -36,7 +37,20 @@ const Novel = ({ root, nodes, styleName }) => {
   return (
     <div className={styles.novel}>
       <div className={className}>
-        <NovelItem node={tree} styleName={styleName} />
+        {tree.isDir ? (
+          <NovelSection
+            childNodes={Object.values(tree.children)}
+            title={tree.fields.title}
+            level={tree.level}
+            styleName={styleName}
+          />
+        ) : (
+          <NovelEpisode
+            src={tree.fields.body}
+            title={tree.fields.title}
+            styleName={styleName}
+          />
+        )}
       </div>
     </div>
   );

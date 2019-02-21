@@ -30,11 +30,15 @@ const query = graphql`
 const List = () => {
   const data = useStaticQuery(query);
   const root = makeTree(data.allFile.edges);
-  root.fields.title = data.file.childTextJson.title;
 
   return (
     <ol className={styles.list}>
-      <ListGroup node={root} level={root.level} />
+      <ListGroup
+        title={data.file.childTextJson.title}
+        slug={root.fields.slug}
+        childNodes={Object.values(root.children)}
+        level={0}
+      />
     </ol>
   );
 };

@@ -5,33 +5,44 @@ import classNames from 'classnames';
 import ListItem from './list-item';
 import styles from './list.module.css';
 
-const ListGroup = ({ node }) => {
-  const childNodes = Object.values(node.children).map((obj) =>
-    obj.isDir ? (
-      <ListGroup key={obj.relativePath} node={obj} />
+const ListGroup = ({ childNodes, title, slug, level }) => {
+  const childComponents = childNodes.map((child) =>
+    child.isDir ? (
+      <ListGroup
+        key={child.relativePath}
+        childNodes={Object.values(child.children)}
+        title={child.fields.title}
+        slug={child.fields.slug}
+        level={level + 1}
+      />
     ) : (
-      <ListItem key={obj.relativePath} node={obj} />
+      <ListItem
+        key={child.relativePath}
+        title={child.fields.title}
+        slug={child.fields.slug}
+        level={level + 1}
+      />
     )
   );
   const className = classNames({
     [styles.listGroup]: true,
-    [styles[`lv${node.level}`]]: true,
+    [styles[`lv${level}`]]: true,
   });
 
   return (
     <>
-      <Link className={className} to={`/view/${node.fields.slug}`}>
-        <li>{node.fields.title}</li>
+      <Link className={className} to={`/view/${slug}`}>
+        <li>{title}</li>
       </Link>
-      {childNodes}
+      {childComponents}
     </>
   );
 };
 ListGroup.propTypes = {
-  node: PropTypes.shape({
-    isDir: PropTypes.bool.isRequired,
-    children: PropTypes.object.isRequired,
-  }).isRequired,
+  childNodes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  title: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
 export default ListGroup;

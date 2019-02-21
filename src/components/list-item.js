@@ -4,20 +4,22 @@ import { Link } from 'gatsby';
 import classNames from 'classnames';
 import styles from './list.module.css';
 
-const ListGroup = ({ node }) => {
+const ListGroup = ({ title, slug, level }) => {
   const className = classNames({
     [styles.listItem]: true,
-    [styles[`lv${node.level}`]]: true,
+    [styles[`lv${level}`]]: true,
   });
 
   return (
-    <Link className={className} to={`/view/${node.fields.slug}`}>
-      <li>{node.fields.title}</li>
+    <Link className={className} to={`/view/${slug}`}>
+      <li>{title}</li>
     </Link>
   );
 };
 ListGroup.propTypes = {
-  node: PropTypes.object.isRequired,
+  title: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  level: PropTypes.number.isRequired,
 };
 
 export default ListGroup;
