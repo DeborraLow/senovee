@@ -4,6 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import classNames from 'classnames';
 import NovelSection from './novel-section';
 import NovelEpisode from './novel-episode';
+import { ConfigContext } from './layout';
 import { makeTree } from '../util/util';
 import styles from './novel.module.css';
 
@@ -17,7 +18,7 @@ const query = graphql`
   }
 `;
 
-const Novel = ({ root, nodes, styleName }) => {
+const Novel = ({ root, nodes }) => {
   const data = useStaticQuery(query);
   let tree = makeTree(nodes);
   root.split('/').forEach((dir) => {
@@ -29,40 +30,30 @@ const Novel = ({ root, nodes, styleName }) => {
     tree.fields.title = data.file.childTextJson.title;
   }
 
-  const className = classNames({
-    [styles.novelContent]: true,
-    [styles[styleName]]: true,
-  });
-
   return (
-    <div className={styles.novel}>
-      <div className={className}>
-        {tree.isDir ? (
-          <NovelSection
-            childNodes={Object.values(tree.children)}
-            title={tree.fields.title}
-            level={tree.level}
-            styleName={styleName}
-          />
-        ) : (
-          <NovelEpisode
-            src={tree.fields.body}
-            title={tree.fields.title}
-            styleName={styleName}
-          />
-        )}
-      </div>
-    </div>
+    <ConfigContext.Consumer>
+      {({ theme }) => (
+        <div className={styles.novel}>
+          <div className={classNames(styles.novelContent, styles[theme])}>
+            {tree.isDir ? (
+              <NovelSection
+                childNodes={Object.values(tree.children)}
+                title={tree.fields.title}
+                level={tree.level}
+              />
+            ) : (
+              <NovelEpisode src={tree.fields.body} title={tree.fields.title} />
+            )}
+          </div>
+        </div>
+      )}
+    </ConfigContext.Consumer>
   );
 };
 Novel.propTypes = {
   root: PropTypes.string.isRequired,
   nodes: PropTypes.arrayOf(PropTypes.shape({ node: PropTypes.object }))
     .isRequired,
-  styleName: PropTypes.string,
-};
-Novel.defaultProps = {
-  styleName: 'kakuyomu',
 };
 
 export default Novel;

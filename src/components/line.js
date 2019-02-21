@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import senoveeAst from 'senovee-ast';
 
+import { ConfigContext } from './layout';
 import Ruby from './ruby';
 import Mark from './mark';
 import styles from './line.module.css';
@@ -29,7 +30,7 @@ const astToComponent = (ast) =>
     return s;
   });
 
-const Line = React.memo(({ src, styleName }) => {
+const Line = React.memo(function LineContent({ src }) {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -43,20 +44,29 @@ const Line = React.memo(({ src, styleName }) => {
   const convertedAst = senoveeAst.buildLine(lineAst);
   const components = astToComponent(convertedAst);
 
-  const className = classNames({
-    [styles[styleName]]: true,
-    [styles.fixed]: true,
-    [styles.line]: true,
-    [styles.active]: active,
-    [styles[`type_${lineAst.type}`]]: true,
-    [styles[`symbol_${lineAst.symbol}`]]: lineAst.symbol in styles,
-  });
-
-  return <div className={className}>{components}</div>;
+  return (
+    <ConfigContext.Consumer>
+      {({ theme }) => (
+        <div
+          className={classNames(
+            {
+              [styles.fixed]: true,
+              [styles.line]: true,
+              [styles.active]: active,
+              [styles[`type_${lineAst.type}`]]: true,
+              [styles[`symbol_${lineAst.symbol}`]]: lineAst.symbol in styles,
+            },
+            styles[theme]
+          )}
+        >
+          {components}
+        </div>
+      )}
+    </ConfigContext.Consumer>
+  );
 });
 
 Line.propTypes = {
   src: PropTypes.string.isRequired,
-  styleName: PropTypes.string.isRequired,
 };
 export default Line;

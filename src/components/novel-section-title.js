@@ -1,25 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { ConfigContext } from './layout';
 import styles from './novel.module.css';
 
-const NovelSectionTitle = ({ children, level, styleName }) => {
-  const className = classNames({
-    [styles.sectionTitle]: true,
-    [styles[styleName]]: true,
-    [styles[`lv${level}`]]: true,
-  });
-
+const NovelSectionTitle = ({ children, level }) => {
   return (
-    <h3 className={className}>
-      <span>{children}</span>
-    </h3>
+    <ConfigContext.Consumer>
+      {({ theme }) => (
+        <h3
+          className={classNames(
+            styles.sectionTitle,
+            styles[`lv${level}`],
+            styles[theme]
+          )}
+        >
+          <span>{children}</span>
+        </h3>
+      )}
+    </ConfigContext.Consumer>
   );
 };
 NovelSectionTitle.propTypes = {
   children: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
-  styleName: PropTypes.string.isRequired,
 };
 
 export default NovelSectionTitle;

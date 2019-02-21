@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Line from './line';
+import { ConfigContext } from './layout';
 import styles from './novel.module.css';
 
 const makeUniqKey = (array, useLength = 5) => {
@@ -19,25 +20,24 @@ const makeUniqKey = (array, useLength = 5) => {
   return keys;
 };
 
-const NovelEpisodeBody = ({ src, styleName }) => {
+const NovelEpisodeBody = ({ src }) => {
   const srcLines = src.split('\n');
   const keys = makeUniqKey(srcLines);
-  const className = classNames({
-    [styles.episodeBody]: true,
-    [styles[styleName]]: true,
-  });
 
   return (
-    <div className={className}>
-      {srcLines.map((srcLine, i) => (
-        <Line styleName={styleName} key={keys[i]} src={srcLine} />
-      ))}
-    </div>
+    <ConfigContext.Consumer>
+      {({ theme }) => (
+        <div className={classNames(styles.episodeBody, styles[theme])}>
+          {srcLines.map((srcLine, i) => (
+            <Line key={keys[i]} src={srcLine} />
+          ))}
+        </div>
+      )}
+    </ConfigContext.Consumer>
   );
 };
 NovelEpisodeBody.propTypes = {
   src: PropTypes.string.isRequired,
-  styleName: PropTypes.string.isRequired,
 };
 
 export default NovelEpisodeBody;
