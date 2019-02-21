@@ -13,14 +13,14 @@ const ListGroup = ({ childNodes, title, slug, level }) => {
         childNodes={Object.values(child.children)}
         title={child.fields.title}
         slug={child.fields.slug}
-        level={level + 1}
+        level={child.level}
       />
     ) : (
       <ListItem
         key={child.relativePath}
         title={child.fields.title}
         slug={child.fields.slug}
-        level={level + 1}
+        level={child.level}
       />
     )
   );

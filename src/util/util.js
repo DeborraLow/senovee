@@ -41,7 +41,11 @@ export const makeTree = (nodes) => {
         current = current[dir].children;
       });
     }
-    current[node.name] = { isDir: false, ...node };
+    current[node.name] = {
+      isDir: false,
+      level: (node.relativeDirectory ? dirs.length : 0) + 1,
+      ...node,
+    };
   });
 
   return root;

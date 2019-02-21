@@ -37,7 +37,7 @@ const List = () => {
         title={data.file.childTextJson.title}
         slug={root.fields.slug}
         childNodes={Object.values(root.children)}
-        level={0}
+        level={root.level}
       />
     </ol>
   );
