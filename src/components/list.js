@@ -6,7 +6,10 @@ import styles from './list.module.css';
 
 const query = graphql`
   {
-    allFile(sort: { order: ASC, fields: [relativePath] }) {
+    allFile(
+      sort: { order: ASC, fields: [relativePath] }
+      filter: { ext: { eq: ".txt" } }
+    ) {
       edges {
         node {
           name

@@ -24,7 +24,7 @@ ViewTemplate.propTypes = {
 export const query = graphql`
   query($regex: String!) {
     allFile(
-      filter: { relativePath: { regex: $regex } }
+      filter: { relativePath: { regex: $regex }, ext: { eq: ".txt" } }
       sort: { order: ASC, fields: [relativePath] }
     ) {
       edges {

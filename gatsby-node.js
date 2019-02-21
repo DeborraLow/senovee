@@ -50,7 +50,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return graphql(`
     {
-      allFile {
+      allFile(filter: { ext: { eq: ".txt" } }) {
         edges {
           node {
             relativeDirectory
