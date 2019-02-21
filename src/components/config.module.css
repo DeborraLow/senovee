@@ -1,0 +1,22 @@
+.config {
+  position: absolute;
+  top: 0;
+  left: 300px;
+  right: 0;
+  z-index: 2;
+  padding: 6px 6px 0 6px;
+
+  background-color: #ddd;
+}
+
+.theme-change-button {
+  border-radius: 6px 6px 0 0;
+  padding: .3em 1em;
+  background: lightgray;
+  border: 1px solid #aaa;
+  border-bottom: 0;
+}
+.theme-change-button.active {
+  background: white;
+  border-bottom: 1px solid white;
+}
