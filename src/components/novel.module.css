@@ -36,8 +36,22 @@
 }
 
 .section-title.lv0.kakuyomu { /* title */
+  position: relative;
+  margin-top: 3em;
   font-size: 42px;
   font-weight: 700;
+  text-align: center;
+}
+.section-title.lv0.kakuyomu::before {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  left: 50%;
+  margin-left: -20px;
+  top: -24px;
+  background-color: #000;
+  width: 40px;
+  height: 10px;
 }
 .section-title.lv1.kakuyomu { /* part */
   font-size: 38.5px;

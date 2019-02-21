@@ -1,17 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql, useStaticQuery } from 'gatsby';
 import classNames from 'classnames';
 import NovelItem from './novel-item';
 import { makeTree } from '../util/util';
 import styles from './novel.module.css';
 
+const query = graphql`
+  {
+    file(relativePath: { eq: "_config.json" }) {
+      childTextJson {
+        title
+      }
+    }
+  }
+`;
+
 const Novel = ({ root, nodes, styleName }) => {
+  const data = useStaticQuery(query);
   let tree = makeTree(nodes);
   root.split('/').forEach((dir) => {
     if (dir) {
       tree = tree.children[dir];
     }
   });
+  if (tree.level === 0) {
+    tree.fields.title = data.file.childTextJson.title;
+  }
 
   const className = classNames({
     [styles.novelContent]: true,

@@ -19,12 +19,19 @@ const query = graphql`
         }
       }
     }
+    file(relativePath: { eq: "_config.json" }) {
+      childTextJson {
+        title
+      }
+    }
   }
 `;
 
 const List = () => {
   const data = useStaticQuery(query);
   const root = makeTree(data.allFile.edges);
+  root.fields.title = data.file.childTextJson.title;
+
   return (
     <ol className={styles.list}>
       <ListGroup node={root} level={root.level} />

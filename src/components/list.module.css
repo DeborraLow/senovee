@@ -26,7 +26,17 @@
 
 /* group ------------------------------------ */
 .list-group.lv0 {
-  display: none;
+  color: #222;
+  font-size: 1.15em;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 1.2em 0.8em;
+}
+.list-group.lv0:visited {
+  color: #222;
+}
+.list-group.lv0:hover {
+  color: cornflowerblue;
 }
 
 .list-group.lv1 {

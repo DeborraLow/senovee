@@ -3,6 +3,7 @@ module.exports = {
     title: `senovee`,
   },
   plugins: [
+    'gatsby-transformer-json',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
