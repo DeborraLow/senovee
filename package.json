@@ -30,6 +30,8 @@
   "dependencies": {
     "@textlint-ja/textlint-rule-no-insert-dropping-sa": "^1.0.1",
     "classnames": "^2.2.6",
+    "gatsby": "^2.1.13",
+    "gatsby-source-filesystem": "^2.0.21",
     "gatsby": "^2.1.4",
     "gatsby-source-filesystem": "^2.0.20",
     "lodash": ">=4.17.5",
@@ -60,7 +62,7 @@
     "textlint-rule-sentence-length": "^2.0.2"
   },
   "devDependencies": {
-    "eslint": "^5.14.0",
+    "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-import": "^2.14.0",
